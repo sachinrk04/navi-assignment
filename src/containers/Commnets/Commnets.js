@@ -33,10 +33,8 @@ const data = [
 ];
 
 export default function Commnets() {
-  const lists = new CommentsLists(data);
+  const lists = new CommentsLists([]);
   const [comments, setComments] = useState(lists.comments);
-
-  console.log("comments---->", comments);
 
   return (
     <div className="commnets-container">

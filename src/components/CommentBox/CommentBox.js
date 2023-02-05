@@ -3,12 +3,18 @@ import { Comment } from "../../dataFormat/inputData";
 import Button from "../Button/Button";
 import "./CommentBox.scss";
 const commentBox = "comment-box";
-export default function CommentBox({ onSetComments, submitType }) {
-  const [addComment, setAddComment] = useState("");
+export default function CommentBox({ onSetComments, submitType, editData }) {
+  const [addComment, setAddComment] = useState(
+    submitType === "edit" ? editData.comment : ""
+  );
 
   const onChangeComment = (e) => {
-    const { value } = e.target;
-    setAddComment(value);
+    if (e.key === "Enter" && addComment.length > 0) {
+      onAddComment();
+    } else {
+      const { value } = e.target;
+      setAddComment(value);
+    }
   };
 
   const onAddComment = () => {
@@ -17,10 +23,14 @@ export default function CommentBox({ onSetComments, submitType }) {
       const newComment = new Comment(comentId, addComment, []);
       onSetComments((oldComment) => [...oldComment, newComment]);
       setAddComment("");
-    } else {
+    } else if (submitType === "reply") {
       const replyId = "REPLY-" + new Date().getTime();
       let replyComment = new Comment(replyId, addComment, []);
       onSetComments(replyComment);
+      setAddComment("");
+    } else {
+      editData.comment = addComment;
+      onSetComments(editData);
       setAddComment("");
     }
   };
@@ -40,12 +50,15 @@ export default function CommentBox({ onSetComments, submitType }) {
             submitType === "create" ? "Enter a comment" : "Enter your reply"
           }
           value={addComment}
-          onChange={onChangeComment}
+          onChange={(e) => onChangeComment(e)}
+          onKeyUp={(e) => onChangeComment(e)}
+          autoFocus={submitType === "create" ? false : true}
         />
-        {submitType === "reply" && addComment.length ? (
+        {(submitType === "reply" || submitType === "edit") &&
+        addComment.length ? (
           <Button
             type={"button"}
-            children={"Reply"}
+            children={submitType === "reply" ? "Reply" : "Update"}
             onClick={onAddComment}
             className={"add-reply"}
             disabled={!addComment.length}

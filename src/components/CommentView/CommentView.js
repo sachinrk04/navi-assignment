@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "../Button/Button";
 import CommentBox from "../CommentBox/CommentBox";
+import DeleteBox from "../DeleteBox/DeleteBox";
 import "./CommentView.scss";
 
 export default function CommentView({
@@ -10,6 +11,8 @@ export default function CommentView({
 }) {
   const [reply, setReply] = useState({});
   const [isDelete, setDelete] = useState({});
+  const [isEdit, setEdit] = useState(false);
+  const [editData, setEditData] = useState({});
 
   const onReply = (data) => {
     reply.id === data.id ? setReply({}) : setReply(data);
@@ -32,6 +35,18 @@ export default function CommentView({
     }
   };
 
+  const onEdit = (data) => {
+    setEdit(!isEdit);
+    setEditData(data);
+  };
+
+  const submitEdit = (data) => {
+    const foundComment = comments.find((element) => element.id === data.id);
+    foundComment.comment = data.comment;
+    setEdit(!isEdit);
+    setEditData({});
+  };
+
   return (
     <div>
       {comments.map((comment, index) => {
@@ -43,52 +58,46 @@ export default function CommentView({
             key={comment.id}
           >
             {comment.comment && comment.comment.length > 0 ? (
-              <>
-                <span className="comment">{comment.comment}</span>
-                <Button
-                  type={"button"}
-                  children={isDelete.id === comment.id ? "Cancel" : "Delete"}
-                  onClick={() => onDelete(comment)}
-                  className={"comment-view-button delete-button"}
-                />
-                <Button
-                  type={"button"}
-                  children={reply.id === comment.id ? "Cancel" : "Reply"}
-                  onClick={() => onReply(comment)}
-                  className={"comment-view-button reply-button"}
-                />
-                {isDelete.id === comment.id ? (
-                  <div className="delete-box">
-                    <span>
-                      Are you sure you want to remove or Delete this comment?
-                    </span>
-                    <div className="delete-action">
-                      <Button
-                        type={"button"}
-                        children="Cancel"
-                        onClick={() => onDelete(comment)}
-                        className={"comment-view-button cancel-button"}
-                      />
-                      <Button
-                        type={"button"}
-                        children="Delete"
-                        onClick={() =>
-                          onRemove(comment, index, replyView, "Delete")
-                        }
-                        className={"comment-view-button delete-button"}
-                      />
-                      <Button
-                        type={"button"}
-                        children="Remove"
-                        onClick={() =>
-                          onRemove(comment, index, replyView, "Remove")
-                        }
-                        className={"comment-view-button delete-button"}
-                      />
-                    </div>
-                  </div>
-                ) : null}
-              </>
+              isEdit && editData.id === comment.id ? (
+                <div>
+                  <CommentBox
+                    onSetComments={submitEdit}
+                    submitType="edit"
+                    editData={editData}
+                  />
+                </div>
+              ) : (
+                <>
+                  <span className="comment">{comment.comment}</span>
+                  <Button
+                    type={"button"}
+                    children={isDelete.id === comment.id ? "Cancel" : "Delete"}
+                    onClick={() => onDelete(comment)}
+                    className={"comment-view-button delete-button"}
+                  />
+                  <Button
+                    type={"button"}
+                    children={reply.id === comment.id ? "Cancel" : "Reply"}
+                    onClick={() => onReply(comment)}
+                    className={"comment-view-button reply-button"}
+                  />
+                  <Button
+                    type={"button"}
+                    children={"Edit"}
+                    onClick={() => onEdit(comment)}
+                    className={"comment-view-button edit-button"}
+                  />
+                  {isDelete.id === comment.id ? (
+                    <DeleteBox
+                      onDelete={onDelete}
+                      onRemove={onRemove}
+                      comment={comment}
+                      index={index}
+                      replyView={replyView}
+                    />
+                  ) : null}
+                </>
+              )
             ) : (
               <>
                 <span className="deleted-comment">Deleted</span>
@@ -97,11 +106,7 @@ export default function CommentView({
 
             {reply.id === comment.id ? (
               <div className={`${"comment-reply"}`}>
-                <CommentBox
-                  onSetComments={submitReply}
-                  submitType="reply"
-                  submitReply={submitReply}
-                />
+                <CommentBox onSetComments={submitReply} submitType="reply" />
               </div>
             ) : null}
             {comment.children.length ? (
