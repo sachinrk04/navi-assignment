@@ -17,7 +17,7 @@ export default function CommentView({
   };
 
   const submitReply = (data) => {
-    setReply(reply.children.unshift(data));
+    setReply(reply.children.push(data));
   };
 
   const onDelete = (data) => {
