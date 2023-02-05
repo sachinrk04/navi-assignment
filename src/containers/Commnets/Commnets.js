@@ -5,35 +5,35 @@ import { CommentsLists } from "../../dataFormat/commentsData";
 import { Comment } from "../../dataFormat/inputData";
 import "./Commnets.scss";
 
-// const data = [
-//   new Comment(1, "1- Level - 1", [
-//     new Comment(11, "2- Level - 1", []),
-//     new Comment(12, "2- Level - 2", []),
-//   ]),
-//   new Comment(2, "1- Level - 2", [
-//     new Comment(11, "2- Level - 1", [
-//       new Comment(11, "2- Level - 1", []),
-//       new Comment(12, "2- Level - 2", []),
-//     ]),
-//     new Comment(12, "2- Level - 2", [
-//       new Comment(11, "2- Level - 1", []),
-//       new Comment(12, "2- Level - 2", [
-//         new Comment(11, "2- Level - 1", [
-//           new Comment(11, "2- Level - 1", []),
-//           new Comment(12, "2- Level - 2", []),
-//         ]),
-//         new Comment(12, "2- Level - 2", [
-//           new Comment(11, "2- Level - 1", []),
-//           new Comment(12, "2- Level - 2", []),
-//         ]),
-//       ]),
-//     ]),
-//   ]),
-//   new Comment(3, "1- Level - 3", []),
-// ];
+const data = [
+  new Comment(1, "1- Level - 1", [
+    new Comment(11, "2- Level - 1", []),
+    new Comment(12, "2- Level - 2", []),
+  ]),
+  new Comment(2, "1- Level - 2", [
+    new Comment(11, "2- Level - 1", [
+      new Comment(11, "2- Level - 1", []),
+      new Comment(12, "2- Level - 2", []),
+    ]),
+    new Comment(12, "2- Level - 2", [
+      new Comment(11, "2- Level - 1", []),
+      new Comment(12, "2- Level - 2", [
+        new Comment(11, "2- Level - 1", [
+          new Comment(11, "2- Level - 1", []),
+          new Comment(12, "2- Level - 2", []),
+        ]),
+        new Comment(12, "2- Level - 2", [
+          new Comment(11, "2- Level - 1", []),
+          new Comment(12, "2- Level - 2", []),
+        ]),
+      ]),
+    ]),
+  ]),
+  new Comment(3, "1- Level - 3", []),
+];
 
 export default function Commnets() {
-  const lists = new CommentsLists([]);
+  const lists = new CommentsLists(data);
   const [comments, setComments] = useState(lists.comments);
 
   console.log("comments---->", comments);
