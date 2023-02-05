@@ -1,0 +1,32 @@
+.comment-box-container {
+    margin-bottom: 6px;
+    margin-top: 6px;
+    .comment-box-label {
+        margin-bottom: 5px;
+        label {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    }
+    .comment-box-input {
+        .input-comment {
+            width: 50%;
+            height: 30px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        .add-button {
+            font-size: 16px;
+            margin-right: 10px;
+            padding: 8px 20px;
+            background: #3498DB;
+            color: #FFFFFF;
+            font-weight: 700;
+            border: none;
+            border-radius: 2px;
+        }
+        .add-reply {
+            margin-left: 10px;
+        }
+    }
+}

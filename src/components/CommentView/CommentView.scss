@@ -1,0 +1,54 @@
+.comment-view-container {
+    .comment-view-button {
+        border-radius: 2px;
+        padding: 1px 8px;
+        margin: 0px 5px;
+        background: #FFF;
+    }
+    .delete-button {
+        border: 0.5px solid red;
+        color: red;
+        
+    }
+    .reply-button {
+        border: 0.5px solid #3498DB;
+        color: #3498DB;
+    }
+
+    .delete-box {
+        width: 425px;
+        padding: 5px 10px;
+        border: 1px solid lightgray;
+        margin-top: 5px;
+        border-radius: 4px;
+        box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.4);
+        .delete-action {
+            padding: 5px 0px;
+            text-align: end;
+            .delete-button {
+                border: none;
+                color: red;
+                font-weight: 600;
+                padding: 2px 5px;
+            }
+
+            .cancel-button {
+                border: none;
+                color: black;
+                padding: 2px 5px;
+            }
+        }
+    }
+    .deleted-comment {
+        color: red;
+    }
+}
+
+.comment-reply {
+    margin-left: 25px;
+    padding-top: 7px;
+}
+
+.comment-view {
+    padding: 5px 0px;
+}
