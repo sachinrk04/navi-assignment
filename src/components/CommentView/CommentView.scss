@@ -1,8 +1,14 @@
 .comment-view-container {
+    .comment {
+        margin-right: 10px;
+        font-size: 14px;
+        padding: 1px 0px;
+        margin-bottom: 3px;
+    }
     .comment-view-button {
         border-radius: 2px;
         padding: 1px 8px;
-        margin: 0px 5px;
+        margin-right: 10px;
         background: #FFF;
     }
     .delete-button {

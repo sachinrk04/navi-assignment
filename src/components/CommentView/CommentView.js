@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "../Button/Button";
 import CommentBox from "../CommentBox/CommentBox";
 import DeleteBox from "../DeleteBox/DeleteBox";
+import HumanReadableTimeFormat from "../HumanReadableTimeFormat/HumanReadableTimeFormat";
 import "./CommentView.scss";
 
 export default function CommentView({
@@ -68,7 +69,7 @@ export default function CommentView({
                 </div>
               ) : (
                 <>
-                  <span className="comment">{comment.comment}</span>
+                  <div className="comment">{comment.comment}</div>
                   <Button
                     type={"button"}
                     children={isDelete.id === comment.id ? "Cancel" : "Delete"}
@@ -96,6 +97,7 @@ export default function CommentView({
                       replyView={replyView}
                     />
                   ) : null}
+                  <HumanReadableTimeFormat time={comment.commentTime} />
                 </>
               )
             ) : (
@@ -109,7 +111,7 @@ export default function CommentView({
                 <CommentBox onSetComments={submitReply} submitType="reply" />
               </div>
             ) : null}
-            {comment.children.length ? (
+            {comment?.children.length ? (
               <CommentView comments={comment.children} replyView={true} />
             ) : null}
           </div>

@@ -20,12 +20,14 @@ export default function CommentBox({ onSetComments, submitType, editData }) {
   const onAddComment = () => {
     if (submitType === "create") {
       const comentId = "COMMENT-" + new Date().getTime();
-      const newComment = new Comment(comentId, addComment, []);
+      const commentTime = new Date();
+      const newComment = new Comment(comentId, addComment, [], commentTime);
       onSetComments((oldComment) => [...oldComment, newComment]);
       setAddComment("");
     } else if (submitType === "reply") {
       const replyId = "REPLY-" + new Date().getTime();
-      let replyComment = new Comment(replyId, addComment, []);
+      const replyTime = new Date();
+      const replyComment = new Comment(replyId, addComment, [], replyTime);
       onSetComments(replyComment);
       setAddComment("");
     } else {
